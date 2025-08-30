@@ -1,0 +1,24 @@
+<div class="drawer-overlay"></div>
+<div id="CartDrawer" class="drawer drawer--right">
+  <div class="drawer__header">
+    <div class="drawer__title h3">{{ 'cart.general.drawer_title' | t }} (<span class="CartCount"></span>)</div>
+    <div class="drawer__close js-drawer-close">
+      <button type="button" class="icon-fallback-text">
+        <i class="fa fa-times"></i>
+        <span class="fallback-text">{{ 'cart.general.close_cart' | t | json }}</span>
+      </button>
+    </div>
+  </div>
+  {% if settings.enable_cartstrip_text %}
+    <div class="cart--promo-msg common_shipping_text js-product-motivator-text" data-motivator-text="{{- settings.free_shipping_text_cart_page -}}" data-free-shipping-text="{{- settings.free_shipping_text_free_cart_page -}}">
+      <span class="js-product-motivator-text-main"></span>
+    </div>
+  {% endif %}
+  <div id="CartContainer">
+    <img src="{{ 'ajax-load.gif' | asset_url }}" alt="cload" class="cload" width="16" height="11" loading="lazy" />
+  </div>
+  <div class="cart-bottom-check-icons">
+    {% render "cart-checkout-icons" %}
+    <p>GUARANTEED SAFE & SECURE CHECKOUT</p>
+  </div>
+</div>

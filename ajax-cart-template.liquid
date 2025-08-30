@@ -1,0 +1,92 @@
+	<script id="CartTemplate" type="text/template" data-no-instant>
+        {% raw %}
+        <form action="/cart" method="post" novalidate class="cartt ajaxcart">
+            <div class="ajaxcart__inner">
+            	<div class="all-products">
+                  {{#items}}
+                  	<div class="all-products-details" data-line="{{line}}">
+                      <div class="product-row">
+                        <div class="product-col">
+                          <div class="product-image">
+                            <a href="{{url}}" class="cart__image">
+                              <img src="{{img}}" alt="{{name}}" width="90" height="90" loading="lazy" />
+                            </a>
+                          </div>
+                          <div class="product-detail">
+                            <div class="product-titles">
+                              <a href="{{url}}" class="product-name">{{name}}</a>
+                              {{#if variation}}
+                                <p class="prduct-color">{{variation}}</p>
+                              {{/if}}
+                              {{#properties}}
+                              {{#each this}}
+                              {{#if this}}
+                                <p class="prduct-color">{{@key}}: {{this}}</p>
+                              {{/if}}
+                              {{/each}}
+                              {{/properties}}
+                              {% endraw %}{% if settings.cart_vendor_enable %}{% raw %}
+                              <p class="prduct-color">{{ vendor }}</p>
+                              {% endraw %}{% endif %}{% raw %}
+                            </div>
+                            <div class="product-quantity">
+                              <div class="ajaxcart__qty">
+                                <input type="text" name="updates[]" class="ajaxcart__qty-num" value="{{itemQty}}" min="0" data-id="{{key}}" data-line="{{line}}" aria-label="quantity" pattern="[0-9]*">
+                                <div class="ajaxcart__qty-btns">
+                                  <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--plus icon-fallback-text" data-id="{{key}}" data-line="{{line}}" {{itemInventoryQuantity}} data-qty="{{itemAdd}}">
+                                    <span class="fallback-text" aria-hidden="true">+</span>
+                                    <span class="visually-hidden">{% endraw %}{{ 'cart.general.increase_quantity' | t }}{% raw %}</span>
+                                  </button>
+                                  <button type="button" class="ajaxcart__qty-adjust ajaxcart__qty--minus icon-fallback-text" data-id="{{key}}" data-qty="{{itemMinus}}" data-line="{{line}}">
+                                    <span class="fallback-text" aria-hidden="true">&minus;</span>
+                                    <span class="visually-hidden">{% endraw %}{{ 'cart.general.reduce_quantity' | t }}{% raw %}</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="amount-col">
+                          <a data-line="{{ line }}" href="/cart/change?line={{ line }}&amp;quantity=0" class="ajaxcart_remove trash-icon cart__remove">
+      						<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" clip-rule="evenodd" d="M4.5 14.25C4.5 15.075 5.175 15.75 6 15.75H12C12.825 15.75 13.5 15.075 13.5 14.25V5.25H4.5V14.25ZM14.25 3H11.625L10.875 2.25H7.125L6.375 3H3.75V4.5H14.25V3Z" fill="#969696"/>
+                            </svg>
+      					  </a>
+                          <h4 class="price"><span class="money">{{price}}</span></h4>
+                        </div>
+                      </div>
+                    </div>
+                  {{/items}}
+      		    </div>
+            </div>
+            <div class="ajaxcart__footer">
+            	{% endraw %}{% if settings.cart_notes_enable %}{% raw %}
+                    <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ note }}</textarea>
+                {% endraw %}{% endif %}{% raw %}
+                <div class="grid--full">
+                    <div class="grid__item two-thirds text-right side-cart--total">
+                        <p><b>{% endraw %}{{ 'cart.general.total' | t }}{% raw %}</b> <b><span class="money">{{{totalPrice}}}</span></b></p>
+                    </div>
+                </div>
+                <button type="submit" name="checkout" class="btn btn--checkout checkout-btn Checkout">
+                  <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.7143 6.125H10.0714V4.15625C10.0714 1.86484 8.24464 0 6 0C3.75536 0 1.92857 1.86484 1.92857 4.15625V6.125H1.28571C0.575893 6.125 0 6.71289 0 7.4375V12.6875C0 13.4121 0.575893 14 1.28571 14H10.7143C11.4241 14 12 13.4121 12 12.6875V7.4375C12 6.71289 11.4241 6.125 10.7143 6.125ZM7.92857 6.125H4.07143V4.15625C4.07143 3.0707 4.93661 2.1875 6 2.1875C7.06339 2.1875 7.92857 3.0707 7.92857 4.15625V6.125Z" fill="white"/>
+                  </svg>
+                  <span id="CheckoutText">{% endraw %}{{ 'cart.general.checkout' | t }}{% raw %}</span>
+                </button>
+                {% endraw %}{% if settings.paypalbutton %}{% raw %}
+                  {% endraw %}{% if additional_checkout_buttons and settings.cart_disable_all_buttons == false %}{% raw %}
+                    <div class="row online-payment">
+                      <div class="col-md-12 col-12">
+                        <span class="additional-checkout-buttons">{% endraw %}{{ content_for_additional_checkout_buttons }}{% raw %}</span>
+                      </div>
+                    </div>
+                  {% endraw %}{% endif %}{% raw %}
+                {% endraw %}{% endif %}{% raw %}
+                <a href="/cart" class="cart__cartview">
+                    {% endraw %}{{ 'cart.general.button' | t }}{% raw %}
+                </a>
+      		</div>
+        </form>
+        {% endraw %}
+    </script>
